@@ -10,6 +10,11 @@ require('dotenv').config();
 // port
 const PORT = process.env.PORT || 3000;
 
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 mongoose
   .connect(process.env.DB_URI, {
     useNewUrlParser: true,
@@ -23,3 +28,5 @@ mongoose
     console.log('server is started at', PORT);
   })
   .catch((err) => console.log(err));
+
+app.use('/user', require('./routes/user'))
